@@ -3,60 +3,697 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Sitio GitHub Pages</title>
+  <title>CoRu-Net | Sitio en GitHub Pages</title>
+  <meta name="description" content="Sitio personal publicado con GitHub Pages: navegación, estilos modernos y formulario de contacto." />
   <style>
+    :root {
+      --bg: #08111f;
+      --bg-soft: #0f1b33;
+      --panel: rgba(15, 23, 42, 0.72);
+      --panel-strong: #111827;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-2: #22c55e;
+      --danger: #f87171;
+      --border: rgba(148, 163, 184, 0.18);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.22), transparent 35%),
+        radial-gradient(circle at 80% 10%, rgba(34, 197, 94, 0.16), transparent 30%),
+        linear-gradient(180deg, #07111f 0%, #0a1628 45%, #08111f 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 17, 31, 0.72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
       display: flex;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 24px;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 72px;
     }
-    .card {
-      background: #1e293b;
-      padding: 32px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      max-width: 480px;
-      width: 100%;
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff, #60a5fa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-    h1 { margin: 0 0 8px; font-size: 2rem; }
-    p { color: #94a3b8; }
-    button {
-      margin-top: 16px;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 8px;
-      background: #3b82f6;
-      color: white;
-      font-size: 16px;
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-weight: 600;
+      transition: color .2s, background .2s, transform .2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #fff;
+      background: rgba(59, 130, 246, 0.16);
+    }
+
+    .nav-toggle {
+      display: none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 1.2rem;
       cursor: pointer;
     }
-    button:hover { opacity: 0.9; }
-    #count { font-size: 1.5rem; margin-top: 12px; color: #34d399; }
+
+    /* Hero */
+    .hero {
+      padding: 78px 0 54px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .9rem;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero h1 {
+      margin: 20px 0 14px;
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      max-width: 640px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform .18s, box-shadow .18s, background .18s;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      box-shadow: 0 14px 32px rgba(59, 130, 246, 0.30);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      border-color: var(--border);
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(34,197,94,0.30), transparent 70%);
+      filter: blur(10px);
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-bottom: none; }
+    .stat strong { display: block; font-size: 1.45rem; }
+    .stat span { color: var(--muted); font-size: .9rem; }
+
+    /* Sections */
+    section { padding: 34px 0; }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0;
+    }
+
+    /* Features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: transform .2s, border-color .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59,130,246,0.45);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(59,130,246,0.14);
+      color: #93c5fd;
+      font-size: 1.35rem;
+      margin-bottom: 16px;
+    }
+
+    .card h3 { margin: 0 0 8px; font-size: 1.15rem; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.6; }
+
+    /* About */
+    .about {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .about-box {
+      background: linear-gradient(180deg, rgba(59,130,246,0.10), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .list li {
+      display: flex;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .list li::before {
+      content: "✓";
+      color: var(--accent-2);
+      font-weight: 800;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 24px;
+    }
+
+    .contact-info {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .contact-info p { color: var(--muted); line-height: 1.7; }
+
+    .contact-form {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .field { margin-bottom: 16px; }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font: inherit;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: rgba(59,130,246,0.75);
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.14);
+    }
+
+    textarea { min-height: 130px; resize: vertical; }
+
+    .error {
+      min-height: 18px;
+      margin-top: 6px;
+      color: var(--danger);
+      font-size: .88rem;
+    }
+
+    .submit {
+      width: 100%;
+      min-height: 48px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .18s, opacity .18s;
+    }
+
+    .submit:hover { transform: translateY(-2px); opacity: .95; }
+
+    .result {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(34,197,94,0.10);
+      border: 1px solid rgba(34,197,94,0.28);
+      color: #86efac;
+      display: none;
+    }
+
+    .result.show { display: block; }
+
+    /* Footer */
+    footer {
+      padding: 34px 0 40px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 30px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .nav-toggle { display: inline-flex; }
+      .nav-links {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        top: 72px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        background: rgba(11, 18, 32, 0.98);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links a { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; animation: none !important; }
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Hola, GitHub Pages 👋</h1>
-    <p>Sitio básico publicado desde mi repo.</p>
-    <button id="btn">Haz clic</button>
-    <div id="count">0</div>
-  </div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="logo" href="#inicio">CoRu-Net</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#inicio" class="active">Inicio</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#acerca">Acerca</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" id="inicio">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Publicado con GitHub Pages</span>
+          <h1>Sitio moderno, rápido y listo para crecer.</h1>
+          <p>
+            Una página de entrada con menú navegable, diseño responsive, tarjetas de servicios
+            y formulario de contacto. Todo listo para subir con <code>git push</code>.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contacto">Contactarme</a>
+            <a class="btn btn-secondary" href="#proyectos">Ver proyectos</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="stat">
+            <div>
+              <strong>100%</strong>
+              <span>Estático y seguro</span>
+            </div>
+            <span>⚡</span>
+          </div>
+          <div class="stat">
+            <div>
+              <strong>Responsive</strong>
+              <span>Móvil y escritorio</span>
+            </div>
+            <span>📱</span>
+          </div>
+          <div class="stat">
+            <div>
+              <strong>Sin backend</strong>
+              <span>Deploy con GitHub</span>
+            </div>
+            <span>🚀</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container" id="proyectos">
+      <div class="section-title">
+        <div>
+          <h2>Proyectos y servicios</h2>
+          <p>Espacio para mostrar lo que haces, tus tecnologías y enlaces a repositorios.</p>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <article class="card">
+          <div class="icon">🌐</div>
+          <h3>Páginas web</h3>
+          <p>Sitios estáticos rápidos para portafolio, academia, negocio o proyecto personal.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">🧩</div>
+          <h3>Formularios</h3>
+          <p>Validación en navegador, captura de datos y conexión con servicios como Formspree o EmailJS.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">🛠️</div>
+          <h3>Automatización</h3>
+          <p>Scripts, flujos y mejoras para ahorrar tiempo en desarrollo y mantenimiento.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="acerca">
+      <div class="about">
+        <div class="about-box">
+          <h2>Acerca de CoRu-Net</h2>
+          <p>
+            Esta página funciona como punto de entrada para presentar tu identidad,
+            proyectos y formas de contacto. Puedes ampliarla cuando quieras.
+          </p>
+          <ul class="list">
+            <li>Diseño limpio y moderno.</li>
+            <li>Navegación por secciones.</li>
+            <li>Formulario de contacto integrado.</li>
+            <li>Sin dependencias externas.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Tecnologías usadas</h3>
+          <p>
+            HTML5, CSS moderno y JavaScript vanilla. Ideal para GitHub Pages porque no requiere build.
+          </p>
+          <div class="actions">
+            <a class="btn btn-secondary" href="https://github.com/CoRu-Net/CoRu-Net.github.io" target="_blank" rel="noopener noreferrer">Ver repositorio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="contacto">
+      <div class="section-title">
+        <div>
+          <h2>Contacto</h2>
+          <p>Completa el formulario y, si lo necesitas, conecta el envío a un backend o servicio de email.</p>
+        </div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Hablemos</h3>
+          <p>
+            Personaliza este texto con tu correo, teléfono, LinkedIn, GitHub o cualquier red social.
+          </p>
+          <p>
+            <strong>Email:</strong> tu-correo@ejemplo.com<br />
+            <strong>GitHub:</strong> github.com/CoRu-Net
+          </p>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="field">
+            <label for="nombre">Nombre *</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" />
+            <div class="error" id="err-nombre"></div>
+          </div>
+
+          <div class="field">
+            <label for="email">Correo electrónico *</label>
+            <input type="email" id="email" name="email" placeholder="tu@correo.com" />
+            <div class="error" id="err-email"></div>
+          </div>
+
+          <div class="field">
+            <label for="mensaje">Mensaje *</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje..."></textarea>
+            <div class="error" id="err-mensaje"></div>
+          </div>
+
+          <button class="submit" type="submit">Enviar mensaje</button>
+          <div class="result" id="result">¡Mensaje validado correctamente! Conecta este formulario a un servicio de envío.</div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div class="footer-row">
+      <span>© <span id="year"></span> CoRu-Net. Todos los derechos reservados.</span>
+      <span>Hecho con HTML, CSS y JavaScript.</span>
+    </div>
+  </footer>
 
   <script>
-    let count = 0;
-    const btn = document.getElementById("btn");
-    const out = document.getElementById("count");
-    btn.addEventListener("click", () => {
-      count++;
-      out.textContent = count;
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+    const navAnchors = document.querySelectorAll(".nav-links a");
+    const sections = document.querySelectorAll("main section, header");
+    const year = document.getElementById("year");
+    const form = document.getElementById("contactForm");
+    const result = document.getElementById("result");
+
+    navToggle.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", String(open));
     });
+
+    navAnchors.forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    const updateActiveLink = () => {
+      let current = "inicio";
+      sections.forEach((section) => {
+        const top = window.scrollY;
+        const offset = section.offsetTop - 90;
+        const height = section.offsetHeight;
+        if (top >= offset && top < offset + height) {
+          current = section.id;
+        }
+      });
+
+      navAnchors.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+      });
+    };
+
+    window.addEventListener("scroll", updateActiveLink);
+    updateActiveLink();
+
+    const setError = (id, message) => {
+      const el = document.getElementById("err-" + id);
+      if (el) el.textContent = message;
+    };
+
+    const validateForm = () => {
+      let ok = true;
+      const nombre = form.nombre.value.trim();
+      const email = form.email.value.trim();
+      const mensaje = form.mensaje.value.trim();
+
+      if (!nombre) {
+        setError("nombre", "El nombre es obligatorio.");
+        ok = false;
+      } else setError("nombre", "");
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setError("email", "Introduce un correo válido.");
+        ok = false;
+      } else setError("email", "");
+
+      if (mensaje.length < 10) {
+        setError("mensaje", "El mensaje debe tener al menos 10 caracteres.");
+        ok = false;
+      } else setError("mensaje", "");
+
+      return ok;
+    };
+
+    ["nombre", "email", "mensaje"].forEach((id) => {
+      const field = document.getElementById(id);
+      if (field) field.addEventListener("input", validateForm);
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!validateForm()) return;
+      result.classList.add("show");
+      form.reset();
+      ["nombre", "email", "mensaje"].forEach((id) => setError(id, ""));
+      setTimeout(() => result.classList.remove("show"), 4000);
+    });
+
+    year.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
